@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+  <h2 class="mb-4 text-center">Enviar Denúncia</h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <!-- Denúncia Anônima -->
+    <div class="form-group">
+      <label for="id_anonima">Deseja fazer uma denúncia anônima?</label>
+      {{ form.anonima }}
+    </div>
+
+    <!-- Campos da Pessoa Denunciante -->
+    <div id="dados_denunciante">
+      <div class="form-group">
+        <label for="id_pessoa_denunciante">Seu nome</label>
+        {{ form.pessoa_denunciante }}
+      </div>
+      <div class="form-group">
+        <label for="id_email_denunciante">Seu e-mail</label>
+        {{ form.email_denunciante }}
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Dados do Agressor -->
+    <h5>Agressor</h5>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="id_nome_agressor">Nome</label>
+        {{ form.nome_agressor }}
+      </div>
+      <div class="form-group col-md-6">
+        <label for="id_ocupacao_agressor">Ocupação</label>
+        {{ form.ocupacao_agressor }}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="id_curso_agressor">Curso</label>
+        {{ form.curso_agressor }}
+      </div>
+      <div class="form-group col-md-6">
+        <label for="id_turma_agressor">Turma</label>
+        {{ form.turma_agressor }}
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Dados da Vítima -->
+    <h5>Vítima</h5>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="id_nome_vitima">Nome</label>
+        {{ form.nome_vitima }}
+      </div>
+      <div class="form-group col-md-6">
+        <label for="id_ocupacao_vitima">Ocupação</label>
+        {{ form.ocupacao_vitima }}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="id_curso_vitima">Curso</label>
+        {{ form.curso_vitima }}
+      </div>
+      <div class="form-group col-md-6">
+        <label for="id_turma_vitima">Turma</label>
+        {{ form.turma_vitima }}
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Tipo e Descrição -->
+    <div class="form-group">
+      <label for="id_tipo_ocorrencia">Tipo de ocorrência</label>
+      {{ form.tipo_ocorrencia }}
+    </div>
+    <div class="form-group">
+      <label for="id_descricao">Descrição da ocorrência</label>
+      {{ form.descricao }}
+    </div>
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-danger btn-lg">Enviar</button>
+    </div>
+  </form>
+</div>
+
+<!-- JavaScript para ocultar campos se for anônima -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const anonimaCheckbox = document.getElementById('id_anonima');
+    const dadosDenunciante = document.getElementById('dados_denunciante');
+
+    function toggleDenunciante() {
+      if (anonimaCheckbox.checked) {
+        dadosDenunciante.style.display = 'none';
+      } else {
+        dadosDenunciante.style.display = 'block';
+      }
+    }
+
+    anonimaCheckbox.addEventListener('change', toggleDenunciante);
+    toggleDenunciante();  // estado inicial
+  });
+</script>
+{% endblock %}

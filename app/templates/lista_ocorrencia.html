@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SafeClass - Ver Denúncias</title>
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <style>
+    body {
+      background-color: #f8f9fa;
+      color: #212529;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .navbar {
+      background-color: #2c3e50 !important;
+    }
+    .navbar-brand, .nav-link {
+      color: #ecf0f1 !important;
+      font-weight: 600;
+    }
+    .nav-link:hover {
+      color: #1abc9c !important;
+    }
+    .container {
+      margin-top: 3rem;
+      max-width: 900px;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+    }
+    th {
+      background-color: #1abc9c;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="/">SafeClass</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Alternar navegação"
+    >
+      <span class="navbar-toggler-icon" style="color:#ecf0f1;"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+        <li class="nav-item"><a class="nav-link" href="/denunciar/">Enviar Denúncia</a></li>
+        <li class="nav-item active"><a class="nav-link" href="/ocorrencias/">Ver Denúncias</a></li>
+        <li class="nav-item"><a class="nav-link" href="/admin/">Administração</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2 class="mb-4">Denúncias Registradas</h2>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Tipo de Ocorrência</th>
+          <th>Descrição</th>
+          <th>Anonimato</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ocorrencia in ocorrencias %}
+        <tr>
+          <td>{{ ocorrencia.data|date:"d/m/Y" }}</td>
+          <td>{{ ocorrencia.get_tipo_ocorrencia_display }}</td>
+          <td>{{ ocorrencia.descricao|truncatechars:50 }}</td>
+          <td>{% if ocorrencia.anonima %}Sim{% else %}Não{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="text-center">Nenhuma denúncia registrada.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
